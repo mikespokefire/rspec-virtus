@@ -1,6 +1,6 @@
 # Rspec::Virtus
 
-TODO: Write a gem description
+Simple RSpec matchers for your Virtus objects
 
 ## Installation
 
@@ -18,7 +18,29 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Here is a sample Virtus object
+
+    class Post
+      include Virtus
+      attribute :title, String
+      attribtue :body, String
+    end
+
+And with `rspec-virtus` we can now make simple assertions about these models
+
+    require 'spec_helper'
+
+    describe Post
+      describe 'attributes' do
+        it "has an attribute" do
+          expect(described_class).to have_attribute(:title)
+        end
+
+        it "has an attribute with a type check" do
+          expect(described_class).to have_attribute(:body).of_type(String)
+        end
+      end
+    end
 
 ## Contributing
 
