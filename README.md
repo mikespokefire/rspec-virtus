@@ -1,4 +1,4 @@
-# Rspec::Virtus
+# Rspec::Virtus [![Build Status](https://travis-ci.org/mikespokefire/rspec-virtus.png?branch=master)](https://travis-ci.org/mikespokefire/rspec-virtus)
 
 Simple RSpec matchers for your Virtus objects
 
