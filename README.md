@@ -24,6 +24,7 @@ Here is a sample Virtus object
       include Virtus
       attribute :title, String
       attribtue :body, String
+      attribtue :comments, Array[String]
     end
 
 And with `rspec-virtus` we can now make simple assertions about these models
@@ -38,6 +39,10 @@ And with `rspec-virtus` we can now make simple assertions about these models
 
         it "has an attribute with a type check" do
           expect(described_class).to have_attribute(:body).of_type(String)
+        end
+
+        it "has an array attribute with a type check" do
+          expect(described_class).to have_attribute(:comments).of_type(Array, member_type: String)
         end
       end
     end
