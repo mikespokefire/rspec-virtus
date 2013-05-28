@@ -6,8 +6,9 @@ module RSpec
         @options = {}
       end
 
-      def of_type(type)
+      def of_type(type, options={})
         @options[:type] = type
+        @options[:member_type] = options.delete(:member_type)
         self
       end
 
@@ -30,6 +31,10 @@ module RSpec
         @subject.attribute_set[@attribute_name]
       end
 
+      def member_type
+        attribute.options[:member_type]
+      end
+
       def attribute_type
         attribute.options[:primitive]
       end
@@ -39,7 +44,9 @@ module RSpec
       end
 
       def type_correct?
-        if @options[:type]
+        if @options[:member_type]
+          member_type == @options[:member_type] && attribute_type == @options[:type]
+        elsif @options[:type]
           attribute_type == @options[:type]
         else
           true
