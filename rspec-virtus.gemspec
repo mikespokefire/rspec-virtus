@@ -21,5 +21,4 @@ Gem::Specification.new do |gem|
   gem.add_dependency "virtus", "~> 0.5"
 
   gem.add_development_dependency "rake", "~> 10.0.0"
-  gem.add_development_dependency "coveralls"
 end

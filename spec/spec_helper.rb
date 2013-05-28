@@ -1,4 +1,3 @@
-Coveralls.wear!
 require 'rspec-virtus'
 
 RSpec.configure do |config|
