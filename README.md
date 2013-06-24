@@ -23,8 +23,8 @@ Here is a sample Virtus object
     class Post
       include Virtus
       attribute :title, String
-      attribtue :body, String
-      attribtue :comments, Array[String]
+      attribute :body, String
+      attribute :comments, Array[String]
     end
 
 And with `rspec-virtus` we can now make simple assertions about these models
