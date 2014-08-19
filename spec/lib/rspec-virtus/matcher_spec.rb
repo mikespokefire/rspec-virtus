@@ -18,7 +18,7 @@ describe RSpec::Virtus::Matcher do
 
     context 'successful match on attribute name' do
       it 'returns true' do
-        expect(subject).to eql(true)
+        expect(subject).to be_truthy
       end
     end
 
@@ -28,7 +28,7 @@ describe RSpec::Virtus::Matcher do
       end
 
       it 'returns true' do
-        expect(subject).to eql(true)
+        expect(subject).to be_truthy
       end
     end
 
@@ -40,7 +40,7 @@ describe RSpec::Virtus::Matcher do
       end
 
       it 'returns true' do
-        expect(subject).to eql(true)
+        expect(subject).to be_truthy
       end
     end
 
@@ -48,7 +48,7 @@ describe RSpec::Virtus::Matcher do
       let(:attribute_name) { :something_else }
 
       it 'returns false' do
-        expect(subject).to eql(false)
+        expect(subject).to be_falsy
       end
     end
 
@@ -60,7 +60,7 @@ describe RSpec::Virtus::Matcher do
       end
 
       it 'returns false' do
-        expect(subject).to eql(false)
+        expect(subject).to be_falsy
       end
     end
 
@@ -72,7 +72,7 @@ describe RSpec::Virtus::Matcher do
       end
 
       it 'returns false' do
-        expect(subject).to eql(false)
+        expect(subject).to be_falsy
       end
     end
   end
