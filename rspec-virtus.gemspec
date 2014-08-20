@@ -17,8 +17,8 @@ Gem::Specification.new do |gem|
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.require_paths = ["lib"]
 
-  gem.add_dependency "rspec", ">= 3.0.0"
-  gem.add_dependency "virtus", "~> 1.0.3"
+  gem.add_dependency "rspec", ">= 3.0"
+  gem.add_dependency "virtus", ">= 1.0"
 
   gem.add_development_dependency "rake", "~> 10.0.0"
 end
