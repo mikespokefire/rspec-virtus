@@ -17,9 +17,7 @@ describe RSpec::Virtus::Matcher do
     let(:actual) { DummyVirtus }
 
     context 'successful match on attribute name' do
-      it 'returns true' do
-        expect(subject).to be_truthy
-      end
+      it { is_expected.to eql(true) }
     end
 
     context 'successful match on attribute name and type' do
@@ -27,9 +25,7 @@ describe RSpec::Virtus::Matcher do
         instance.of_type(String)
       end
 
-      it 'returns true' do
-        expect(subject).to be_truthy
-      end
+      it { is_expected.to eql(true) }
     end
 
     context 'successful match on attribute name, type and member_type' do
@@ -39,17 +35,13 @@ describe RSpec::Virtus::Matcher do
         instance.of_type(Array, member_type: String)
       end
 
-      it 'returns true' do
-        expect(subject).to be_truthy
-      end
+      it { is_expected.to eql(true) }
     end
 
     context 'unsuccessful match on attribute name' do
       let(:attribute_name) { :something_else }
 
-      it 'returns false' do
-        expect(subject).to be_falsy
-      end
+      it { is_expected.to eql(false) }
     end
 
     context 'unsuccessful match on attribute name and type' do
@@ -59,9 +51,7 @@ describe RSpec::Virtus::Matcher do
         instance.of_type(Integer)
       end
 
-      it 'returns false' do
-        expect(subject).to be_falsy
-      end
+      it { is_expected.to eql(false) }
     end
 
     context 'unsuccessful match on attribute name, type and member_type' do
@@ -71,9 +61,7 @@ describe RSpec::Virtus::Matcher do
         instance.of_type(Array, member_type: Integer)
       end
 
-      it 'returns false' do
-        expect(subject).to be_falsy
-      end
+      it { is_expected.to eql(false) }
     end
   end
 
