@@ -59,3 +59,5 @@ And with `rspec-virtus` we can now make simple assertions about these models
 
 - Version 1.0.0
     - Upgrade syntax to work with Virtus 1.0.x
+- Version 0.2.0
+    - Upgrade to RSpec 3.0
