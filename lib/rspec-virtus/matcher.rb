@@ -7,7 +7,7 @@ module RSpec
       end
 
       def description
-        "has #{@attribute_name} defined"
+        "have #{@attribute_name} defined"
       end
 
       def of_type(type, options={})
