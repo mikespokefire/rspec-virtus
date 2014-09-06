@@ -6,6 +6,10 @@ module RSpec
         @options = {}
       end
 
+      def description
+        "has #{@attribute_name} defined"
+      end
+
       def of_type(type, options={})
         @options[:type] = type
         @options[:member_type] = options.delete(:member_type)
@@ -21,7 +25,7 @@ module RSpec
         "expected #{@attribute_name} to be defined"
       end
 
-      def negative_failure_message
+      def failure_message_when_negated
         "expected #{@attribute_name} not to be defined"
       end
 
