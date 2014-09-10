@@ -94,16 +94,24 @@ describe RSpec::Virtus::Matcher do
     end
   end
 
+  describe '#description' do
+    subject { instance.description }
+
+    it 'tells you which attribute we are testing' do
+      expect(subject).to include(attribute_name.to_s)
+    end
+  end
+
   describe '#failure_message' do
-    subject { instance.negative_failure_message }
+    subject { instance.failure_message }
 
     it 'tells you which attribute failed' do
       expect(subject).to include(attribute_name.to_s)
     end
   end
 
-  describe '#negative_failure_message' do
-    subject { instance.negative_failure_message }
+  describe '#failure_message_when_negated' do
+    subject { instance.failure_message_when_negated }
 
     it 'tells you which attribute failed' do
       expect(subject).to include(attribute_name.to_s)
