@@ -57,6 +57,9 @@ And with `rspec-virtus` we can now make simple assertions about these models
 
 ## Changelog
 
+- Version 1.0.1
+    - Remove deprecation notices about legacy matcher syntax
+    - Add description to match RSpec 3 matchers
 - Version 1.0.0
     - Upgrade syntax to work with Virtus 1.0.x
 - Version 0.2.0
