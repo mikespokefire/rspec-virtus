@@ -21,7 +21,7 @@ Or install it yourself as:
 Here is a sample Virtus object
 
     class Post
-      include Virtus
+      include Virtus.model
       attribute :title, String
       attribute :body, String
       attribute :comments, Array[String]
