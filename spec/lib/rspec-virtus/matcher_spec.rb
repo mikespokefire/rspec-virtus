@@ -6,7 +6,7 @@ describe RSpec::Virtus::Matcher do
   let(:attribute_name) { :the_attribute }
 
   class DummyVirtus
-    include Virtus
+    include Virtus.model
 
     attribute :the_attribute, String
     attribute :the_array_attribute, Array[String]
