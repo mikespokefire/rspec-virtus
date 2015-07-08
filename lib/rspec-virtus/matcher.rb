@@ -44,7 +44,7 @@ module RSpec
       end
 
       def attribute_exists?
-        attribute != nil
+        !attribute.nil?
       end
 
       def type_correct?
