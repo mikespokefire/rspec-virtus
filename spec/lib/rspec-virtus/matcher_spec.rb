@@ -126,18 +126,50 @@ describe RSpec::Virtus::Matcher do
   end
 
   describe '#failure_message' do
-    subject { instance.failure_message }
+    subject { instance.tap { |i| i.matches?(DummyVirtus) }.failure_message }
 
-    it 'tells you which attribute failed' do
-      expect(subject).to include(attribute_name.to_s)
+    context 'on absent attribute' do
+      let(:attribute_name) { :something_else }
+
+      it 'returns absence message' do
+        message = 'expected :something_else to be defined in DummyVirtus'
+        expect(subject).to eq message
+      end
     end
-  end
 
-  describe '#failure_message_when_negated' do
-    subject { instance.failure_message_when_negated }
+    context 'on incorrect type' do
+      before { instance.of_type(Integer) }
 
-    it 'tells you which attribute failed' do
-      expect(subject).to include(attribute_name.to_s)
+      describe 'attribute type' do
+        context 'with primitive type' do
+          it 'returns type primitive' do
+            message = 'expected :the_attribute to be Integer, got String'
+            expect(subject).to eq message
+          end
+        end
+
+        context 'with attribute' do
+          let(:attribute_name) { :custom_attribute }
+
+          it 'returns type class' do
+            message = 'expected :custom_attribute to be Integer, got DummyAttribute'
+            expect(subject).to eq message
+          end
+        end
+      end
+    end
+
+    context 'on incorrect member_type' do
+      let(:attribute_name) { :the_array_attribute }
+
+      before do
+        instance.of_type(Array, member_type: Integer)
+      end
+
+      it 'returns wrong type message' do
+        message = 'expected :the_array_attribute to be Array[Integer], got Array[String]'
+        expect(subject).to eq message
+      end
     end
   end
 end

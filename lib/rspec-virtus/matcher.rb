@@ -1,6 +1,13 @@
 module RSpec
   module Virtus
     class Matcher
+      MESSAGES = {
+        undefined_attribute: 'expected :%{attribute} to be defined in %{subject}',
+        incorrect_type: 'expected :%{attribute} to be %{expected}, got %{actual}'
+      }.freeze
+
+      attr_accessor :failure_message
+
       def initialize(attribute_name)
         @attribute_name = attribute_name
         @options = {}
@@ -18,18 +25,19 @@ module RSpec
 
       def matches?(subject)
         @subject = subject
-        attribute_exists? && type_correct?
-      end
 
-      def failure_message
-        "expected #{@attribute_name} to be defined"
-      end
+        failure = validate
+        @failure_message = compose_message(failure) if failure
 
-      def failure_message_when_negated
-        "expected #{@attribute_name} not to be defined"
+        failure.nil?
       end
 
       private
+
+      def validate
+        return [:undefined_attribute, {}] unless attribute_exists?
+        return [:incorrect_type, expected_actual_types] unless type_correct?
+      end
 
       def attribute
         @subject.attribute_set[@attribute_name]
@@ -59,6 +67,35 @@ module RSpec
 
       def attribute_match?(actual, expected)
         [actual.class, actual.type, actual.primitive].include?(expected)
+      end
+
+      def compose_message(failure)
+        key, params = failure
+        MESSAGES[key] % { attribute: @attribute_name, subject: @subject }.merge(params)
+      end
+
+      def expected_actual_types
+        {
+          expected: pretty_type(@options[:type], @options[:member_type]),
+          actual: pretty_type(
+            pretty_attribute(attribute),
+            @options[:member_type] && pretty_attribute(attribute.member_type)
+          )
+        }
+      end
+
+      def attribute_type
+        attribute.primitive
+      end
+
+      def pretty_type(type, member_type = nil)
+        return type.to_s unless member_type
+        "#{type}[#{member_type}]"
+      end
+
+      def pretty_attribute(attribute)
+        return attribute.class if attribute.primitive == BasicObject
+        attribute.primitive
       end
     end
   end
