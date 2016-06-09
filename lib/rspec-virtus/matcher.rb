@@ -49,12 +49,21 @@ module RSpec
 
       def type_correct?
         if @options[:member_type]
-          member_type == @options[:member_type] && attribute_type == @options[:type]
+          type_match? && member_type_match?
         elsif @options[:type]
-          attribute_type == @options[:type]
+          type_match?
         else
           true
         end
+      end
+
+      def type_match?
+        attribute.type == @options[:type] || attribute.primitive == @options[:type]
+      end
+
+      def member_type_match?
+        attribute.member_type.type == @options[:member_type] ||
+          attribute.member_type.primitive == @options[:member_type]
       end
     end
   end

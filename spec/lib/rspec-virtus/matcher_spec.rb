@@ -20,7 +20,7 @@ describe RSpec::Virtus::Matcher do
       it { is_expected.to eql(true) }
     end
 
-    context 'successful match on attribute name and type' do
+    context 'successful match on attribute name and primitive type' do
       before do
         instance.of_type(String)
       end
@@ -28,11 +28,29 @@ describe RSpec::Virtus::Matcher do
       it { is_expected.to eql(true) }
     end
 
-    context 'successful match on attribute name, type and member_type' do
+    context 'successful match on attribute name and attribute type' do
+      before do
+        instance.of_type(Axiom::Types::String)
+      end
+
+      it { is_expected.to eql(true) }
+    end
+
+    context 'successful match on attribute name, type and primitive member_type' do
       let(:attribute_name) { :the_array_attribute }
 
       before do
         instance.of_type(Array, member_type: String)
+      end
+
+      it { is_expected.to eql(true) }
+    end
+
+    context 'successful match on attribute name, type and attribute member_type' do
+      let(:attribute_name) { :the_array_attribute }
+
+      before do
+        instance.of_type(Array, member_type: Axiom::Types::String)
       end
 
       it { is_expected.to eql(true) }
