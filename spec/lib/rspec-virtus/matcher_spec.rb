@@ -5,11 +5,13 @@ describe RSpec::Virtus::Matcher do
   let(:instance) { described_class.new(attribute_name) }
   let(:attribute_name) { :the_attribute }
 
+  class DummyAttribute < Virtus::Attribute; end
   class DummyVirtus
     include Virtus.model
 
     attribute :the_attribute, String
     attribute :the_array_attribute, Array[String]
+    attribute :custom_attribute, DummyAttribute
   end
 
   describe '#matches?' do
@@ -21,17 +23,20 @@ describe RSpec::Virtus::Matcher do
     end
 
     context 'successful match on attribute name and primitive type' do
-      before do
-        instance.of_type(String)
-      end
+      before { instance.of_type(String) }
 
       it { is_expected.to eql(true) }
     end
 
     context 'successful match on attribute name and attribute type' do
-      before do
-        instance.of_type(Axiom::Types::String)
-      end
+      before { instance.of_type(Axiom::Types::String) }
+
+      it { is_expected.to eql(true) }
+    end
+
+    context 'successful match on attribute name and custom type' do
+      let(:attribute_name) { :custom_attribute }
+      before { instance.of_type(DummyAttribute) }
 
       it { is_expected.to eql(true) }
     end

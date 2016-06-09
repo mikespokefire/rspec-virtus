@@ -35,14 +35,6 @@ module RSpec
         @subject.attribute_set[@attribute_name]
       end
 
-      def member_type
-        attribute.member_type.primitive
-      end
-
-      def attribute_type
-        attribute.primitive
-      end
-
       def attribute_exists?
         !attribute.nil?
       end
@@ -58,12 +50,15 @@ module RSpec
       end
 
       def type_match?
-        attribute.type == @options[:type] || attribute.primitive == @options[:type]
+        attribute_match?(attribute, @options[:type])
       end
 
       def member_type_match?
-        attribute.member_type.type == @options[:member_type] ||
-          attribute.member_type.primitive == @options[:member_type]
+        attribute_match?(attribute.member_type, @options[:member_type])
+      end
+
+      def attribute_match?(actual, expected)
+        [actual.class, actual.type, actual.primitive].include?(expected)
       end
     end
   end
